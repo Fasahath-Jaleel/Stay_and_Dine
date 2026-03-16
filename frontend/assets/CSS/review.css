@@ -1,0 +1,52 @@
+.input-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  padding-top: 7px;
+  padding-bottom: 7px;
+}
+
+.label-container {
+  padding-top: 5px;
+  width: 140px;
+}
+.heading {
+  padding-bottom: 30px;
+}
+
+.heading .underline {
+  width: 50%;
+  border-bottom: 3px solid #222;
+  margin: 0 auto;
+}
+
+.inp {
+  padding-inline: 10px;
+  height: 35px;
+  width: 300px;
+  border-radius: 5px;
+}
+
+.navbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+}
+
+.header_wrapper {
+  padding-top: 80px;
+}
+
+.navbar-brand img {
+  width: 60px;
+}
+
+.navbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+  background-color: #1a2a4f;
+  padding: 1rem;
+}

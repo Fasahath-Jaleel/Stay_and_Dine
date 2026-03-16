@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="theme-color" content="#ffffff">
+  <title>Places</title>
+  <link rel="icon" type="image/png" href="./assets//images//others/logo.png" width="150px" height="200">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css">
+  <link rel="stylesheet" href="./assets/CSS/styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+    integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+
+  <style>
+    .navbar-brand img {
+      width: 60px;
+    }
+
+    .navbar {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 1000;
+      background-color: #1a2a4f;
+      padding: 1rem;
+    }
+
+    .header_wrapper {
+      padding-top: 80px;
+    }
+
+    .content-wrapper p,
+    .about_wrapper p {
+      font-size: 1.1rem;
+      line-height: 1.6;
+      color: #555;
+      text-align: justify;
+    }
+
+    .header_wrapper {
+      padding-top: 80px;
+    }
+
+    .content-wrapper p {
+      font-size: 1.1rem;
+      line-height: 1.6;
+      color: #555;
+      text-align: justify;
+    }
+
+    .team_wrapper .team-info {
+      background-color: rgb(95, 92, 92);
+      position: absolute;
+      width: 100%;
+      bottom: 0;
+      text-align: center;
+      padding: 1.25rem;
+      margin-bottom: 0 !important;
+      transition: all 0.3s ease-in-out;
+    }
+  </style>
+</head>
+
+<body data-bs-spy="scroll" data-bs-target=".navbar" data-bs-offset="100">
+
+  <header class="header_wrapper">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark py-1">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">
+          <img src="./assets/images/others/logo.png" class="img-fluid" alt="logo" height="50px" width="50px">
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto">
+            <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+            <li class="nav-item"><a class="nav-link" href="places.html">Places</a></li>
+            <li class="nav-item"><a class="nav-link" href="gallery.html">Gallery</a></li>
+            <li class="nav-item"><a class="nav-link" href="about-us.html">About Us</a></li>
+            <li class="nav-item"><a class="nav-link" href="contact-us.html">Contact Us</a></li>
+            <li class="nav-item"><a class="nav-link text-warning" href="review.html">Reviews</a></li>
+          </ul>
+          <div>
+            <ul id="authDiv" class="navbar-nav me-auto">
+
+            </ul>
+          </div>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <section id="team" class="team_wrapper">
+    <div class="container">
+      <!-- search & filter -->
+      <div class="container my-4">
+        <div class="row justify-content-between">
+          <div class="col-auto"></div>
+          <div class="col-auto">
+            <div class="d-flex align-items-center gap-2">
+              <input required class="form-control" type="text" placeholder="Search" name="search" id="search"
+                style="width: 200px;">
+              <button class="btn btn-primary"><i class="fas fa-search"></i></button>
+              <button class="btn btn-primary" onclick="openAddReviewModal()">Add Review</button>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <div class="row" id="place-container"></div>
+
+      <!-- add review Modal -->
+      <div class="modal fade" id="addReviewModal" tabindex="-1" aria-labelledby="addReviewModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="reviewModalLabel">Add Review</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form id="addReviewForm" method="post">
+              <div class="modal-body">
+                <div class="input-container form-group">
+                  <span class="label-container">
+                    <label for="">Select place:</label>
+                  </span>
+                  <span>
+                    <select required class="inp form-control" name="place" id="select-place">
+                      <option>select</option>
+                    </select>
+                  </span>
+                </div>
+                <div class="input-container form-group">
+                  <span class="label-container">
+                    <label for="">Description:</label>
+                  </span>
+                  <span>
+                    <textarea required class="inp form-control" placeholder="Description" rows="3"
+                      name="description"></textarea>
+                  </span>
+                </div>
+                <div class="input-container form-group">
+                  <span class="label-container">
+                    <label for="">Ratings:</label>
+                  </span>
+                  <div id="starRatingDiv" class="star-rating mt-2">
+                    <i class="fa fa-star star-rating fs-4"></i>
+                    <i class="fa fa-star star-rating fs-4"></i>
+                    <i class="fa fa-star star-rating fs-4"></i>
+                    <i class="fa fa-star star-rating fs-4"></i>
+                    <i class="fa fa-star star-rating fs-4"></i>
+                  </div>
+
+                </div>
+
+              </div>
+              <div class="modal-footer">
+                <button type="submit" class="btn btn-primary">Save</button>
+
+                <input type="reset" class="btn btn-danger" data-bs-dismiss="modal" value="Close" />
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+  </section>
+  <script>
+    function openAddReviewModal() {
+      if (sessionStorage.getItem('userId') == '' || !sessionStorage.getItem('userId')) {
+        alert("Please login to add review");
+        location.href = "Login.html";
+      }
+      $.ajax({
+        url: 'http://localhost:5000/api/getPlaceNames',
+        method: 'GET',
+        success: function (response) {
+          if (response.success) {
+            places = response.places;
+            generateDropdown(places);
+          } else {
+            console.error('Failed to retrieve places:', response.message);
+          }
+        },
+        error: function (xhr, status, error) {
+          console.error('AJAX request failed:', status, error);
+        }
+      });
+      const modal = new bootstrap.Modal(document.getElementById('addReviewModal'));
+      modal.show();
+    }
+    function generateDropdown(places) {
+      const droDownContainer = document.getElementById('select-place');
+      droDownContainer.innerHTML = '';
+      places.forEach(item => {
+        const dropDownHTML = `
+            <option value="${item._id}">${item.name}</option>
+        `;
+        droDownContainer.insertAdjacentHTML('beforeend', dropDownHTML);
+      });
+    }
+
+
+    function generatePlaceCards(filteredPlaces) {
+      const container = document.getElementById('place-container');
+      if (filteredPlaces.length === 0) {
+        const noResultsHTML = `
+            <div class="col-12 text-center mt-5">
+                <img src="./assets/images/others/no-result.png" alt="No results" class="img-fluid">
+            </div>
+        `;
+        container.insertAdjacentHTML('beforeend', noResultsHTML);
+      }
+
+      filteredPlaces.forEach(item => {
+        const cardHTML = `
+            <div class="col-lg-3 col-md-6 mb-4">
+                <div class="card p-0 rounded-3" onclick='redirectTo(${JSON.stringify(item._id)})'>
+                    <span><img src="${item.image}" style="height: 300px;width: 350px;" class="rounded-3"></span>
+                    <div class="team-info">
+                        <h5>${item.name}</h5>
+                        <p class="">${item.city}</p>
+                        <p class="mb-1">${item.averageStar} <i class="fa fa-star text-warning fs-5"></i></p>
+                        
+                    </div>
+                </div>
+            </div>
+        `;
+        container.insertAdjacentHTML('beforeend', cardHTML);
+      });
+    }
+    function redirectTo(placeId) {
+      window.location.href = `hotelReview.html?placeId=${placeId}`;
+    }
+
+    $(document).ready(function () {
+      $('#area').val('all');
+
+      let places;
+      // getPlaces from backend API
+      $.ajax({
+        url: `http://localhost:5000/api/getPlaces`,
+        method: 'GET',
+        success: function (response) {
+          if (response.success) {
+            places = response.places;
+            generatePlaceCards(places);
+
+          } else {
+            console.error('Failed to retrieve places:', response.message);
+          }
+        },
+        error: function (xhr, status, error) {
+          console.error('AJAX request failed:', status, error);
+        }
+      });
+
+
+      // search places
+      $('#search').on('input', function () {
+        const container = document.getElementById('place-container');
+        container.innerHTML = '';
+        const searchTerm = $(this).val().toLowerCase();
+
+        const filteredPlaces = places.filter(item =>
+          item.name.toLowerCase().includes(searchTerm) ||
+          item.type.toLowerCase().includes(searchTerm)
+        );
+
+        generatePlaceCards(filteredPlaces);
+      });
+
+      // filter by area
+      $('#area').on('change', function () {
+        const container = document.getElementById('place-container');
+        container.innerHTML = '';
+        const selectedType = $(this).val().toLowerCase();
+
+        if (selectedType == 'all') {
+          generatePlaceCards(places);
+          return
+        }
+
+        const filteredPlaces = places.filter(item =>
+          item.city.toLowerCase() === selectedType
+        );
+
+        generatePlaceCards(filteredPlaces);
+      });
+
+      // Select stars
+      $('.star-rating').on('click', 'i', function () {
+        starCount = $(this).index() + 1;
+        // alert(starCount);
+        let newStars = [];
+        for (let i = 0; i < 5; i++) {
+          if (i < starCount) {
+            newStars.push('<i class="fa fa-star text-warning fs-4"></i>');
+          } else {
+            newStars.push('<i class="fa fa-star star-rating text-secondary fs-4"></i>');
+          }
+        }
+        const starContainer = document.getElementById('starRatingDiv');
+        starContainer.innerHTML = '';
+        const starHTML = `
+          <div>
+            ${newStars.join(' ')}
+          </div>                     
+        `;
+        starContainer.insertAdjacentHTML('beforeend', starHTML);
+      });
+
+      // Add review
+      $('#addReviewForm').on('submit', function (event) {
+        event.preventDefault();
+        if (!starCount || starCount == 0 || starCount == '') {
+          alert('Please rate before submit!');
+          return
+        }
+
+        const formData2 = {
+          user: sessionStorage.getItem('userId'),
+          place: $('#select-place').val(),
+          description: $('textarea[name="description"]').val(),
+          star: starCount
+        };
+        console.log(formData2)
+
+
+        $.ajax({
+          url: 'http://localhost:5000/api/addReview',
+          type: 'POST',
+          contentType: 'application/json',
+          data: JSON.stringify(formData2),
+          success: function (response) {
+            if (response.success) {
+              alert("Review added!");
+              location.reload();
+            } else {
+              alert("login failed: " + response.message);
+            }
+          },
+          error: function (xhr, status, error) {
+            console.error("Error occurred during add review:", error);
+            alert("An error occurred during add review. Please try again.");
+          }
+        });
+      });
+    });
+  </script>
+  <script>
+    function logout() {
+      sessionStorage.removeItem('userId');
+      window.location = "./login.html";
+    }
+    $(document).ready(function () {
+      if (sessionStorage.getItem('userId') == '' || !sessionStorage.getItem('userId')) {
+        $('#authDiv').html(`
+        <li class="nav-item">
+          <a class="nav-link" href="Login.html">
+            <h5>Login</h5>
+          </a>
+        </li>
+        `);
+      } else {
+        $('#authDiv').html(`
+        <li class="nav-item">
+          <a class="nav-link" href="javascript:void(0);" onclick="logout()">
+            <h5>Logout</h5>
+          </a>
+        </li>`);
+      }
+    });
+  </script>
+
+  <!-- Bootstrap JS and Popper.js -->
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+    crossorigin="anonymous"></script>
+</body>
+
+</html>
